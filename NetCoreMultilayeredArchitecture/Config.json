@@ -1,0 +1,5 @@
+{
+  "logsPath": "./logs/",
+  "ConnectionStringDBEF": "Host=localhost;Port=5432;Database=netCore;Username=psp;Password=psp",
+  "ConnectionStringDBClickHouse": "Compress=True;CheckCompressedHash=False;Compressor=lz4;Host=192.168.0.54;Port=9000;Database=default;User=default;Password=psp"
+}

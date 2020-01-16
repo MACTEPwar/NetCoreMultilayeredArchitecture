@@ -20,7 +20,13 @@ namespace NetCoreMultilayeredArchitecture
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .ConfigureAppConfiguration((hostingContext, config) =>
+                        {
+                            config.AddJsonFile(@"./Config.json", optional: false, reloadOnChange: false);
+                            config.AddCommandLine(args);
+                        })
+                        .UseStartup<Startup>();
                 });
     }
 }

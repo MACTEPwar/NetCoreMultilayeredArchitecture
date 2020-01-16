@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreMultilayeredArchitecture", "NetCoreMultilayeredArchitecture\NetCoreMultilayeredArchitecture.csproj", "{DF92F220-0757-4EF7-BFEB-7E814FC3C2A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "NetCoreMultilayeredArchitecture\API.csproj", "{DF92F220-0757-4EF7-BFEB-7E814FC3C2A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{B5891935-8A87-4FDB-B0F9-E888DD523128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{D064958F-9204-43DC-A292-21C8FDAAC522}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{DF92F220-0757-4EF7-BFEB-7E814FC3C2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF92F220-0757-4EF7-BFEB-7E814FC3C2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF92F220-0757-4EF7-BFEB-7E814FC3C2A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5891935-8A87-4FDB-B0F9-E888DD523128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5891935-8A87-4FDB-B0F9-E888DD523128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5891935-8A87-4FDB-B0F9-E888DD523128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5891935-8A87-4FDB-B0F9-E888DD523128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D064958F-9204-43DC-A292-21C8FDAAC522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D064958F-9204-43DC-A292-21C8FDAAC522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D064958F-9204-43DC-A292-21C8FDAAC522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D064958F-9204-43DC-A292-21C8FDAAC522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
