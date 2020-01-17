@@ -6,7 +6,7 @@ using LSG.GenericCrud.Models;
 namespace DAL.Models.Entitys
 {
     [Table(name: "t_account", Schema = "public")]
-    public class Account : IEntity
+    public class Account
     {
         public Account()
         {

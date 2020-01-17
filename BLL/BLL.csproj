@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="LSG.GenericCrud" Version="4.1.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.20" />
   </ItemGroup>
 
   <ItemGroup>

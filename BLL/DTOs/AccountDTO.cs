@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BLL.DTOs
 {
-    class AccountDTO
+    public class AccountDTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

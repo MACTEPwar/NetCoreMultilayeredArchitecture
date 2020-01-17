@@ -5,7 +5,7 @@ using LSG.GenericCrud.Models;
 namespace DAL.Models.Entitys
 {
     [Table(name: "t_contact", Schema = "public")]
-    public class Contact : IEntity<int>
+    public class Contact
     {
         [Key]
         public int Id { get; set; }

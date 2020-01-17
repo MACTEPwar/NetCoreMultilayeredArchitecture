@@ -16,6 +16,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using BLL.Infrastructure;
+using BLL.Interfaces;
+using BLL.Services;
 
 namespace NetCoreMultilayeredArchitecture
 {
@@ -36,6 +38,7 @@ namespace NetCoreMultilayeredArchitecture
                 .AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>(), AppDomain.CurrentDomain.GetAssemblies())
                 .AddDbContext<DbEntityContext>(options => options.UseNpgsql(Config.Get<string>("ConnectionStringDBEF")))
                 .AddUnitOfWork<DbEntityContext>()
+                .AddScoped<IAccountService, AccountService>()
                 .AddControllers();
         }
 
