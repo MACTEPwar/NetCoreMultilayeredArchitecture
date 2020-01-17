@@ -11,6 +11,9 @@ using BLL.Filters;
 using BLL.Infrastructure;
 using BLL.Interfaces;
 using DAL.Models.Entitys;
+using ExpressionBuilder.Common;
+using ExpressionBuilder.Generics;
+using ExpressionBuilder.Operations;
 
 namespace BLL.Services
 {
@@ -22,6 +25,40 @@ namespace BLL.Services
         {
             _db = unitOfWork;
             _mapper = mapper;
+        }
+
+        public OperationResult<IList<AccountDTO>> ReadByFilter(AccountFilter f = null)
+        {
+            Expression<Func<IQueryable<Account>, IOrderedQueryable<Account>>> expressionOrderByAccount = null;
+            Expression<Func<Account, bool>> expressionWhereAccount = (a => true);//по умолчанию все
+
+            Filter<Account> filter = new Filter<Account>();
+            
+
+            if (f != null)
+            {
+                if (f.IdEqual != null)
+                {
+                    filter.By<Guid?>(nameof(Account.Id), Operation.EqualTo, f.IdEqual, default(Guid?), Connector.And);
+                }
+
+                if (!string.IsNullOrEmpty(f.NameContains))
+                {
+                    filter.By(nameof(Account.Id), Operation.Contains, f.NameContains, default(string), Connector.And);
+                }
+
+                //if (f.Sorts.Any())
+                //{
+                //    expressionOrderByAccount = source => source.OrderBy(string.Join(",", filter.Sorts.Select(item => item.GetSortCriteria())));
+                //}
+            }
+
+            if (filter.Statements.Count() != 0)
+            {
+                expressionWhereAccount = filter;
+            }
+
+            return null;
         }
 
         public OperationResult<IList<AccountDTO>> Read(AccountFilter filter = null)
