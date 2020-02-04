@@ -8,11 +8,11 @@ namespace BLL.Infrastructure
     {
         public MappingProfile()
         {
-            CreateMap<Account, AccountDTO>();
-            CreateMap<AccountDTO, Account>();
+            CreateMap<Account, AccountDTO>().ReverseMap();
+            //CreateMap<AccountDTO, Account>();
 
-            CreateMap<Contact, ContactDTO>();
-            CreateMap<ContactDTO, Contact>();
+            CreateMap<Contact, ContactDTO>().ReverseMap();
+            //CreateMap<ContactDTO, Contact>();
         }
     }
 }
