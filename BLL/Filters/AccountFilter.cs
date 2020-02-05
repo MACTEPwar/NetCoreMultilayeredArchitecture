@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL.DTOs;
+using FilterBuilder;
 
 namespace BLL.Filters
 {
-    public class AccountFilter
+    public class AccountFilter : Filter<AccountDTO>
     {
-        public Guid? IdEqual { get; set; }
-        public string NameContains { get; set; }
-
-        public Paging Paging { get; set; }
-        public IList<Sort> Sorts { get; set; } = new List<Sort>();
+        public AccountFilter()
+        {
+            this.ApplyPendingOperation();
+        }
     }
 }

@@ -14,6 +14,7 @@ using DAL.Models.Entitys;
 using ExpressionBuilder.Common;
 using ExpressionBuilder.Generics;
 using ExpressionBuilder.Operations;
+using FilterBuilder.Infrastructure;
 
 namespace BLL.Services
 {
@@ -27,94 +28,30 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public OperationResult<IList<AccountDTO>> ReadByFilter(AccountFilter f = null)
-        {
-            Expression<Func<IQueryable<Account>, IOrderedQueryable<Account>>> expressionOrderByAccount = null;
-            Expression<Func<Account, bool>> expressionWhereAccount = (a => true);//по умолчанию все
-
-            Filter<Account> filter = new Filter<Account>();
-            
-
-            if (f != null)
-            {
-                if (f.IdEqual != null)
-                {
-                    filter.By<Guid?>(nameof(Account.Id), Operation.EqualTo, f.IdEqual, default(Guid?), Connector.And);
-                }
-
-                if (!string.IsNullOrEmpty(f.NameContains))
-                {
-                    filter.By(nameof(Account.Id), Operation.Contains, f.NameContains, default(string), Connector.And);
-                }
-
-                //if (f.Sorts.Any())
-                //{
-                //    expressionOrderByAccount = source => source.OrderBy(string.Join(",", filter.Sorts.Select(item => item.GetSortCriteria())));
-                //}
-            }
-
-            if (filter.Statements.Count() != 0)
-            {
-                expressionWhereAccount = filter;
-            }
-
-            return null;
-        }
-
         public OperationResult<IList<AccountDTO>> Read(AccountFilter filter = null)
         {
             Expression<Func<IQueryable<Account>, IOrderedQueryable<Account>>> expressionOrderByAccount = null;
+            Expression<Func<Account, bool>> expressionWhereAccount = new ExpressionMaker().GetExpressionWhere<Account, AccountDTO>(filter, _mapper);
 
-            Expression<Func<Account, bool>> expressionWhereAccount = (a => true);//по умолчанию все
-            ParameterExpression parameter = Expression.Parameter(typeof(Account), "a");
-            Expression conditions = null;
-
-            if (filter != null)
+            if (filter?.Sort != null)
             {
-                if (filter.IdEqual != null)
-                {
-                    Expression left = Expression.PropertyOrField(parameter, nameof(Account.Id));
-                    Expression right = Expression.Constant(filter.IdEqual, typeof(Guid));
-                    var condition = Expression.Equal(left, right);
-
-                    conditions = conditions == null ? condition : Expression.AndAlso(conditions, condition);
-                }
-
-                if (!string.IsNullOrEmpty(filter.NameContains))
-                {
-                    var condition = Expression.Call(Expression.Property(parameter, nameof(Account.Name)), typeof(string).GetMethods().FirstOrDefault(f => f.Name == "Contains"), Expression.Constant(filter.NameContains));
-
-                    if (conditions == null)
-                        conditions = condition;
-                    else
-                        conditions = Expression.AndAlso(conditions, condition);
-                }
-
-                if (filter.Sorts.Any())
-                {
-                    expressionOrderByAccount = source => source.OrderBy(string.Join(",", filter.Sorts.Select(item => item.GetSortCriteria())));
-                }
+                expressionOrderByAccount = source => source.OrderBy(string.Join(",", filter.Sort.Select(item => item.GetSortCriteria())));
             }
 
-            expressionWhereAccount = conditions == null ? expressionWhereAccount : Expression.Lambda<Func<Account, bool>>(conditions, parameter);
-
-            IList<Account> accounts = null;
+            IList<Account> result = null;
 
             if (filter?.Paging != null)
             {
-                accounts = _db.GetRepository<Account>()
-                 .GetPagedList(expressionWhereAccount, expressionOrderByAccount?.Compile(), pageIndex: filter.Paging.Page, pageSize: filter.Paging.PageItems)
-                 .Items;
+                result = _db.GetRepository<Account>().GetPagedList(expressionWhereAccount, expressionOrderByAccount?.Compile(), pageIndex: (int)filter?.Paging?.Page, pageSize: (int)filter?.Paging?.PageItems).Items;
             }
             else
             {
-                accounts = _db.GetRepository<Account>()
-                 .GetPagedList(expressionWhereAccount, expressionOrderByAccount?.Compile())
-                 .Items;
+                result = _db.GetRepository<Account>().GetPagedList(expressionWhereAccount, expressionOrderByAccount?.Compile()).Items;
             }
 
-            return OperationResult<IList<AccountDTO>>.Success(_mapper.Map<IList<AccountDTO>>(accounts));
+            return OperationResult<IList<AccountDTO>>.Success(_mapper.Map<IList<AccountDTO>>(result));
         }
+
         public OperationResult Create(AccountDTO account)
         {
             try
@@ -128,6 +65,7 @@ namespace BLL.Services
                 return OperationResult.Exception(e);
             }
         }
+
         public OperationResult Update(Guid id, AccountDTO account)
         {
             var oldAccount = _db.GetRepository<Account>().GetFirstOrDefault(a => a.Id == id, null, null, true, false);
@@ -147,6 +85,7 @@ namespace BLL.Services
                 return OperationResult.Exception(e);
             }
         }
+
         public OperationResult Delete(Guid id)
         {
             var account = _db.GetRepository<Account>().GetFirstOrDefault(a => a.Id == id, null, null, true, false);

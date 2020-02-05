@@ -26,4 +26,10 @@
     <Folder Include="Infrastructure\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="FilterBuilder">
+      <HintPath>..\..\FilterBuilder\FilterBuilder\bin\Release\netcoreapp3.0\FilterBuilder.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using BLL.DTOs;
 using BLL.Filters;
+using BLL.Infrastructure;
 using BLL.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,10 +24,21 @@ namespace API.Controllers
             return Ok(_accountService.Read(filter));
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] AccountDTO account)
+        public async Task<ActionResult> Post([FromBody] AccountFilterA filter)
         {
-            return Ok(_accountService.Create(account));
+            OperationResult<IList<AccountDTO>> items = null;
+
+            try
+            {
+                items = _accountService.ReadByFilterAndruha(filter);
+                return Ok(items);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+
+
         }
     }
 }

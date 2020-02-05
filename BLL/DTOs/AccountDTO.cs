@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using FilterBuilder.FilterAttributes;
 
 namespace BLL.DTOs
 {
     public class AccountDTO
     {
         public Guid Id { get; set; }
+        [Filtered]
         public string Name { get; set; }
     }
 }
