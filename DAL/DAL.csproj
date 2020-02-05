@@ -4,8 +4,20 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="LSG.GenericCrud" Version="4.1.0" />
+    <Compile Remove="Infrastructure\BaseDbContext.cs" />
+    <Compile Remove="Infrastructure\IDbContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
@@ -13,6 +25,12 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.UnitOfWork" Version="3.1.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="LSG.GenericCrud">
+      <HintPath>..\..\LSG.GenericCrud\LSG.GenericCrud\bin\Release\netcoreapp3.0\LSG.GenericCrud.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

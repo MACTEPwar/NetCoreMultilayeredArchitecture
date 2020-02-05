@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
-using System.Text;
 using Arch.EntityFrameworkCore.UnitOfWork;
 using AutoMapper;
 using BLL.DTOs;
@@ -11,9 +10,6 @@ using BLL.Filters;
 using BLL.Infrastructure;
 using BLL.Interfaces;
 using DAL.Models.Entitys;
-using ExpressionBuilder.Common;
-using ExpressionBuilder.Generics;
-using ExpressionBuilder.Operations;
 using FilterBuilder.Infrastructure;
 
 namespace BLL.Services
