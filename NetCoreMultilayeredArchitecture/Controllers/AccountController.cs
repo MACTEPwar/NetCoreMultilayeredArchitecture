@@ -24,13 +24,13 @@ namespace API.Controllers
             return Ok(_accountService.Read(filter));
         }
 
-        public async Task<ActionResult> Post([FromBody] AccountFilterA filter)
+        public async Task<ActionResult> Post([FromBody] AccountFilter filter)
         {
             OperationResult<IList<AccountDTO>> items = null;
 
             try
             {
-                items = _accountService.ReadByFilterAndruha(filter);
+                items = _accountService.Read(filter);
                 return Ok(items);
             }
             catch (Exception e)

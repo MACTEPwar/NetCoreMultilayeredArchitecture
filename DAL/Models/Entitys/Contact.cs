@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using LSG.GenericCrud.Models;
 
@@ -18,7 +19,7 @@ namespace DAL.Models.Entitys
         public string Phone { get; set; }
 
         [Required]
-        public int AccountId { get; set; }
+        public Guid AccountId { get; set; }
         public virtual Account Account { get; set; }
     }
 }

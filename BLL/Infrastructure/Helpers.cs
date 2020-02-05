@@ -15,8 +15,6 @@ namespace BLL.Infrastructure
     /// </summary>
     public static class Helpers
     {
-        // private static readonly NLog.Logger _logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-
         /// <summary>
         /// Переводит unix формат(секунды) в DateTime
         /// </summary>
@@ -100,33 +98,5 @@ namespace BLL.Infrastructure
             }
             return sBuilder.ToString();
         }
-
-        public static string GetSortCriteria(this Sort item)
-        {
-            return string.Format("{0} {1}", item.SortField, item.SortType == SortType.Descending ? "DESC" : "ASC");
-        }
-
-        //public static IQueryable OrderBy(this IQueryable source, string ordering, params object[] values)
-        //{
-        //    if (source == null) throw new ArgumentNullException("source");
-        //    if (ordering == null) throw new ArgumentNullException("ordering");
-        //    ParameterExpression[] parameters = new ParameterExpression[] {
-        //        Expression.Parameter(source.ElementType, "") };
-        //    ExpressionParser parser = new ExpressionParser(parameters, ordering, values);
-        //    IEnumerable<DynamicOrdering> orderings = parser.ParseOrdering();
-        //    Expression queryExpr = source.Expression;
-        //    string methodAsc = "OrderBy";
-        //    string methodDesc = "OrderByDescending";
-        //    foreach (DynamicOrdering o in orderings)
-        //    {
-        //        queryExpr = Expression.Call(
-        //            typeof(Queryable), o.Ascending ? methodAsc : methodDesc,
-        //            new Type[] { source.ElementType, o.Selector.Type },
-        //            queryExpr, Expression.Quote(Expression.Lambda(o.Selector, parameters)));
-        //        methodAsc = "ThenBy";
-        //        methodDesc = "ThenByDescending";
-        //    }
-        //    return source.Provider.CreateQuery(queryExpr);
-        //}
     }
 }

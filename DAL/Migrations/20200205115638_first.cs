@@ -33,7 +33,9 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: false),
+                    Login = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,19 +73,18 @@ namespace DAL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Address = table.Column<string>(maxLength: 250, nullable: false),
                     Phone = table.Column<string>(maxLength: 18, nullable: false),
-                    AccountId = table.Column<int>(nullable: false),
-                    AccountId1 = table.Column<Guid>(nullable: true)
+                    AccountId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_t_contact", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_t_contact_t_account_AccountId1",
-                        column: x => x.AccountId1,
+                        name: "FK_t_contact_t_account_AccountId",
+                        column: x => x.AccountId,
                         principalSchema: "public",
                         principalTable: "t_account",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -93,10 +94,10 @@ namespace DAL.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_t_contact_AccountId1",
+                name: "IX_t_contact_AccountId",
                 schema: "public",
                 table: "t_contact",
-                column: "AccountId1");
+                column: "AccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
